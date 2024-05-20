@@ -1,0 +1,83 @@
+1. Users
+   - user_id: INT (PRIMARY KEY)
+   - username: VARCHAR
+   - password_hash: VARCHAR
+   - email: VARCHAR
+   - phone: VARCHAR
+
+2. Clients
+   - client_id: INT (PRIMARY KEY)
+   - contact_email: VARCHAR
+   - contact_phone: VARCHAR
+   - body_measurements_id: INT (FOREIGN KEY to BodyMeasurements.measurement_id)
+   - plan_id: INT (FOREIGN KEY to Plans.plan_id)
+   - trainer_id: INT (FOREIGN KEY to Users.user_id)
+
+3. BodyMeasurements
+   - measurement_id: INT (PRIMARY KEY)
+   - height: DECIMAL
+   - weight: DECIMAL
+   - body_fat_percentage: DECIMAL
+   - measurements_date: DATE
+
+4. Plans
+   - plan_id: INT (PRIMARY KEY)
+   - price: DECIMAL
+   - start_date: DATE
+   - end_date: DATE
+   - trainer_id: INT (FOREIGN KEY to Users.user_id)
+   - client_id: INT (FOREIGN KEY to Clients.client_id)
+   - gym_program_id: INT (FOREIGN KEY to GymPrograms.program_id)
+   - diet_program_id: INT (FOREIGN KEY to DietPrograms.program_id)
+   - consultation_details: TEXT
+
+5. GymPrograms
+   - program_id: INT (PRIMARY KEY)
+   - description: TEXT
+   - workout_weeks_id: INT (FOREIGN KEY to WorkoutWeeks.week_id)
+
+6. DietPrograms
+   - program_id: INT (PRIMARY KEY)
+   - details: TEXT
+
+7. WorkoutWeeks
+   - week_id: INT (PRIMARY KEY)
+   - start_date: DATE
+   - end_date: DATE
+   - info: TEXT
+
+8. WorkoutDays
+   - day_id: INT (PRIMARY KEY)
+   - week_id: INT (FOREIGN KEY to WorkoutWeeks.week_id)
+   - day_number: INT
+   - day_type: ENUM('workout', 'rest')
+
+9. WorkoutRecords
+   - record_id: INT (PRIMARY KEY)
+   - day_id: INT (FOREIGN KEY to WorkoutDays.day_id)
+   - type: ENUM('warmup', 'normal')
+   - pause: VARCHAR
+   - exercise_name: VARCHAR
+   - intensity: DECIMAL
+   - intensity_type: ENUM('machine', 'dumbbell')
+   - sets: INT
+   - reps_or_minutes: INT
+   - RIR: INT
+   - NIR: INT
+   - note: TEXT
+   - tutorial_video_link: VARCHAR
+
+10. SavedExercises
+    - saved_exercise_id: INT (PRIMARY KEY)
+    - trainer_id: INT (FOREIGN KEY to Users.user_id)
+    - exercise_name: VARCHAR
+    - description: TEXT
+    - type: ENUM('warmup', 'normal')
+    - intensity: DECIMAL
+    - intensity_type: ENUM('machine', 'dumbbell')
+    - sets: INT
+    - reps_or_minutes: INT
+    - RIR: INT
+    - NIR: INT
+    - note: TEXT
+    - tutorial_video_link: VARCHAR
