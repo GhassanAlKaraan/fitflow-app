@@ -1,3 +1,3 @@
 # fitflow_frontend
 
-A new Flutter project.
+A new Flutter project for the Fitflow app.
